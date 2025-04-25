@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
       element.style.color = 'red';
       setTimeout(() => {
         element.textContent = '';
-      }, 3000);
+      }, 5000);
     }
   // Update card number display on input
 
