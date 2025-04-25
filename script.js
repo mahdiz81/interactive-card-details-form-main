@@ -39,12 +39,63 @@ document.addEventListener('DOMContentLoaded', () => {
     return formattedParts.join(' ');
   }
 
+    // Validation message helpers
+    function showValidationMessage(element, message) {
+      element.textContent = message;
+      element.style.color = 'red';
+      setTimeout(() => {
+        element.textContent = '';
+      }, 3000);
+    }
   // Update card number display on input
-  cardNumberInput.addEventListener('input', (e) => {
-    const formattedNumber = formatCardNumber(e.target.value);
-    e.target.value = formattedNumber;
+
+  function formatCardNumber(value) {
+    // تابع فرمت شماره کارت (به عنوان مثال)
+    return value.replace(/D/g, '').replace(/(.{4})/g, '$1 ').trim(); // فرمت بندی به صورت 4 کاراکتر
+}
+
+cardNumberInput.addEventListener('input', (event) => {
+    const input = event.target;
+    const oldValue = input.value;
+    const oldCursorPos = input.selectionStart;
+
+    // Remove all non-digit characters
+    let digits = oldValue.replace(/\D/g, '');
+    if (digits.length > 16) {
+      digits = digits.slice(0, 16);
+    }
+
+    // Format digits with spaces every 4 characters
+    let formattedNumber = '';
+    for (let i = 0; i < digits.length; i++) {
+      if (i > 0 && i % 4 === 0) {
+        formattedNumber += ' ';
+      }
+      formattedNumber += digits[i];
+    }
+
+    // Calculate new cursor position
+    let cursorPosition = oldCursorPos;
+    const countSpacesBeforeCursor = (oldValue.slice(0, oldCursorPos).match(/ /g) || []).length;
+    const countDigitsBeforeCursor = oldCursorPos - countSpacesBeforeCursor;
+    cursorPosition = countDigitsBeforeCursor + Math.floor(countDigitsBeforeCursor / 4);
+
+    input.value = formattedNumber;
     cardNumberDisplay.textContent = formattedNumber || '0000 0000 0000 0000';
-  });
+
+    // Set cursor position
+    input.setSelectionRange(cursorPosition, cursorPosition);
+
+    const labelNum = document.querySelector('.LabelNum');
+
+    if (digits.length < 16) {
+        showValidationMessage(labelNum, "You must enter 16 characters");
+    } else {
+        showValidationMessage(labelNum, 'Card number entry completed successfully!');
+labelNum.style.color='green'
+labelNum.style.fontWeight='bold'
+    }
+});
 
   // Update cardholder name display on input
   cardHolderInput.addEventListener('input', (e) => {
@@ -73,14 +124,7 @@ document.addEventListener('DOMContentLoaded', () => {
     cardCvcDisplay.textContent = cvc || '000';
   });
 
-  // Validation message helpers
-  function showValidationMessage(element, message) {
-    element.textContent = message;
-    element.style.color = 'red';
-    setTimeout(() => {
-      element.textContent = '';
-    }, 3000);
-  }
+
 
   // Validation on blur events
   cardHolderInput.addEventListener('blur', () => {
@@ -89,14 +133,10 @@ document.addEventListener('DOMContentLoaded', () => {
       showValidationMessage(labelName, 'Please write your name');
     }
   });
+  
+  
 
-  cardNumberInput.addEventListener('blur', () => {
-    const labelNum = document.querySelector('.LabelNum');
-    if (cardNumberInput.value.trim()==="") {
-      showValidationMessage(labelNum, 'Please write your number');
-    }
-  });
-
+console.log(cardNumberInput)
   expMonthInput.addEventListener('blur', () => {
     const labelExpMonth = document.querySelector('.LabelExpMonth');
     if (expMonthInput.value.trim()==="") {
@@ -122,17 +162,17 @@ document.addEventListener('DOMContentLoaded', () => {
   form.addEventListener('submit', (e) => {
    e.preventDefault()
 
-    if (
-      cardNumberInput.value.trim() === '' ||
-      cardHolderInput.value.trim() === '' ||
-      expMonthInput.value.trim() === '' ||
-      expYearInput.value.trim() === '' ||
-      cvcInput.value.trim() === ''
+    // if (
+    //   cardNumberInput.value.trim() === '' ||
+    //   cardHolderInput.value.trim() === '' ||
+    //   expMonthInput.value.trim() === '' ||
+    //   expYearInput.value.trim() === '' ||
+    //   cvcInput.value.trim() === ''
       
-    ) {
-      // alert('Please fill out all fields before submitting.');
-      return;
-    }
+    // ) {
+    //   // alert('Please fill out all fields before submitting.');
+    //   return;
+    // }
     console.log(cardNumberInput.value.trim(), cardHolderInput.value.trim(), expMonthInput.value.trim(), expYearInput.value.trim(), cvcInput.value.trim());
 
     // Show thank you message
