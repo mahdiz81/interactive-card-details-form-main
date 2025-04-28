@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Initialize card preview with default values
   cardNumberDisplay.textContent = '0000 0000 0000 0000';
-  cardHolderDisplay.textContent = 'لطفاً نام را وارد کنید.';
+  cardHolderDisplay.textContent = 'Name&LastName';
   cardExpiryDisplay.textContent = '00/00';
   cardCvcDisplay.textContent = '000';
 
@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Format cardholder name: capitalize first letter of each part
   function formatCardHolderName(name) {
     if (!name.trim()) {
-      return "لطفاً نام را وارد کنید.";
+      return "Name&LastName";
     }
     const parts = name.trim().split(/\s+/);
     const formattedParts = parts.map(part => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase());
@@ -162,17 +162,7 @@ console.log(cardNumberInput)
   form.addEventListener('submit', (e) => {
    e.preventDefault()
 
-    // if (
-    //   cardNumberInput.value.trim() === '' ||
-    //   cardHolderInput.value.trim() === '' ||
-    //   expMonthInput.value.trim() === '' ||
-    //   expYearInput.value.trim() === '' ||
-    //   cvcInput.value.trim() === ''
-      
-    // ) {
-    //   // alert('Please fill out all fields before submitting.');
-    //   return;
-    // }
+   
     console.log(cardNumberInput.value.trim(), cardHolderInput.value.trim(), expMonthInput.value.trim(), expYearInput.value.trim(), cvcInput.value.trim());
 
     // Show thank you message
@@ -182,7 +172,7 @@ console.log(cardNumberInput)
     form.reset();
 
     cardNumberDisplay.textContent = '0000 0000 0000 0000';
-    cardHolderDisplay.textContent = 'لطفاً نام را وارد کنید.';
+    cardHolderDisplay.textContent = 'your Name...';
     cardExpiryDisplay.textContent = '00/00';
     cardCvcDisplay.textContent = '000';
   });
@@ -195,7 +185,7 @@ console.log(cardNumberInput)
     thankYouMessage.style.display = 'none';
     form.reset();
     cardNumberDisplay.textContent = '0000 0000 0000 0000';
-    cardHolderDisplay.textContent = 'لطفاً نام را وارد کنید.';
+    cardHolderDisplay.textContent = 'your Name...';
     cardExpiryDisplay.textContent = '00/00';
     cardCvcDisplay.textContent = '000';
   });

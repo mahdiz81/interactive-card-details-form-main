@@ -164,7 +164,8 @@ body {
     padding: 20px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
-    z-index: 2;
+    background-color: #fffefe;
+    z-index: 10;
     
   }
 
@@ -228,21 +229,12 @@ padding: 20px;
   margin-left: 20px;
 }
 
-/* .card-holder,
-.card-expiry {
-  font-size:1.5rem;
-  display: inline-block;
-  width: 65%;
-  margin-top: 5px;
-  margin-left: 29px;
-  font-size: 20rem;
-  font-family: monospace;
-  font-weight: 500;
-} */
+
 .Baseline{
   display: flex;
   justify-content: center;
   align-items: center;
+  
 
 }
 
@@ -377,7 +369,7 @@ margin-top: -5px;
   .card-holder,
   .card-expiry {
  
-    margin-top:-1px;
+    margin-top:-5px;
     width: 100%;
     display: inline-flex;
    margin-bottom: 10px;
